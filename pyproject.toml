@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "orderscribe"
+version = "0.1.0"
+description = "Convert purchase-order PDFs to Markdown and typed orders using Codex"
+authors = ["Sami"]
+readme = "README.md"
+packages = [{ include = "orderscribe", from = "src" }]
+
+[tool.poetry.dependencies]
+python = ">=3.12,<3.15"
+pymupdf4llm = ">=0.0.27,<1.0"
+pydantic = ">=2.11,<3.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = ">=8,<10"
+ruff = ">=0.11,<1"
+
+[tool.poetry.scripts]
+orderscribe = "orderscribe.cli:main"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
