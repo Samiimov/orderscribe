@@ -20,28 +20,27 @@ The PDF conversion runs locally. Extraction sends the Markdown to Codex using
 your existing CLI authentication and model configuration. No Python OpenAI SDK
 or separate API key is required when using an authenticated Codex account.
 
-## Run the example
+## Usage
+
+Replace `path/to/order.pdf` with the path to your purchase-order PDF.
 
 ```bash
-poetry run orderscribe run test_docs/PO39793-01.pdf
+poetry run orderscribe run path/to/order.pdf
 ```
 
 Creates:
 
-- `output/PO39793-01.md`: page headings and formatted source text.
-- `output/PO39793-01.json`: the validated purchase order, including line items.
-
-For this sample, the order number is `PO39793`, with eight items and a printed
-total of `739.58 EUR`.
+- `output/order.md`: page headings and formatted source text.
+- `output/order.json`: the validated purchase order, including line items.
 
 Run the stages separately to review or edit the Markdown before extraction:
 
 ```bash
 # Local conversion; does not require Codex or a network connection.
-poetry run orderscribe convert test_docs/PO39793-01.pdf
+poetry run orderscribe convert path/to/order.pdf
 
 # Interpret an existing Markdown file.
-poetry run orderscribe extract output/PO39793-01.md
+poetry run orderscribe extract output/order.md
 ```
 
 Options:
@@ -63,7 +62,7 @@ from pathlib import Path
 
 from orderscribe import CodexExtractor, PurchaseOrder, pdf_to_markdown
 
-markdown = pdf_to_markdown("test_docs/PO39793-01.pdf")
+markdown = pdf_to_markdown("path/to/order.pdf")
 Path("order.md").write_text(markdown, encoding="utf-8")
 
 order: PurchaseOrder = CodexExtractor(timeout=180).extract(markdown)
